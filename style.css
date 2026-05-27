@@ -61,13 +61,13 @@ body {
 
 .signpost h2 {
     margin: 5px 0 0 0;
-    font-size: 16px;
+    font-size: 14px;
     color: #fff;
 }
 
 .city-sign {
     border-color: #27ae60;
-    background: #1b4d3e; /* Yol kənarı yaşıl tabela havası */
+    background: #1b4d3e;
 }
 
 .city-sign h2 {
@@ -90,7 +90,7 @@ body {
 
 #monument-name {
     margin: 0;
-    font-size: 12px;
+    font-size: 11px;
     color: #3498db;
 }
 
@@ -129,44 +129,93 @@ body {
         transparent 34%, transparent 65%, #fff 65%, #fff 67%, transparent 67%);
 }
 
-/* --- MAŞINLAR --- */
-.car {
+/* ==========================================
+   🏎️ MAŞIN MODELLƏRİNİN VİZUAL ARCHITECTURE
+   ========================================== */
+.car, .enemy {
     position: absolute;
-    width: 60px;
-    height: 100px;
-    border-radius: 8px;
+    width: 55px;
+    height: 95px;
+    border-radius: 6px;
+    box-shadow: 0 6px 10px rgba(0,0,0,0.4);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 6px 0;
+    box-sizing: border-box;
+}
+
+.car {
     bottom: 30px;
     transition: left 0.12s ease-out;
     z-index: 2;
 }
 
 .enemy {
-    position: absolute;
-    width: 60px;
-    height: 100px;
-    border-radius: 8px;
     z-index: 1;
+    transform: rotate(180deg);
 }
 
-/* --- BAYRAQ GRADIEN-LƏRİ --- */
+/* Maşınların daxili detalları (Şüşələr və Faralar) */
+.car::before, .enemy::before {
+    content: "";
+    display: block;
+    width: 80%;
+    height: 18px;
+    background: rgba(0, 0, 0, 0.75);
+    margin: 0 auto;
+    border-radius: 3px;
+    border-bottom: 2px solid #555;
+}
+
+.car::after, .enemy::after {
+    content: "";
+    display: block;
+    width: 85%;
+    height: 4px;
+    background: linear-gradient(90deg, #fff 15%, transparent 15%, transparent 85%, #fff 85%);
+    margin: 0 auto;
+}
+.enemy::after {
+    background: linear-gradient(90deg, #ffeb3b 15%, transparent 15%, transparent 85%, #ffeb3b 85%);
+}
+
+/* 🇦🇿 AZERBAIJAN: LADA 2107 (Kvadrat Retro Forma & Üçrəngli Zolaq) */
+.azerbaijan-skin {
+    background:
+        linear-gradient(to bottom, transparent 40%, rgba(0,0,0,0.1) 40%, rgba(0,0,0,0.1) 60%, transparent 60%),
+        linear-gradient(#3498db 33%, #e74c3c 33%, #e74c3c 66%, #2ecc71 66%);
+    border: 2px solid #2c3e50;
+    border-radius: 2px !important;
+    box-shadow: inset 0 0 15px rgba(0,0,0,0.3), 0 6px 10px rgba(0,0,0,0.4);
+}
+
+/* 🇪🇸 SPAIN: SEAT IBIZA (Aerodinamik Hetçbek) */
+.spanish-skin {
+    background:
+        radial-gradient(circle at 50% 50%, #ffd700 15%, transparent 16%),
+        linear-gradient(#e74c3c 25%, #ffd700 25%, #ffd700 75%, #e74c3c 75%);
+    border: 2px solid #c0392b;
+    border-radius: 12px 12px 6px 6px !important;
+}
+
+/* 📐 CATALONIA: SEAT LEON */
 .catalan-skin {
     background: linear-gradient(90deg, #ffd700 0%, #ffd700 20%, #e74c3c 20%, #e74c3c 40%, #ffd700 40%, #ffd700 60%, #e74c3c 60%, #e74c3c 80%, #ffd700 80%);
-    border: 1px solid #d35400;
+    border: 2px solid #d35400;
+    border-radius: 10px 10px 8px 8px !important;
 }
 
+/* ⛰️ BASQUE: VW GOLF */
 .basque-skin {
-    background: linear-gradient(90deg, transparent 44%, #fff 44%, #fff 56%, transparent 56%), linear-gradient(transparent 44%, #fff 44%, #fff 56%, transparent 56%), linear-gradient(45deg, transparent 46%, #27ae60 46%, #27ae60 54%, transparent 54%), linear-gradient(-45deg, transparent 46%, #27ae60 46%, #27ae60 54%, transparent 54%), #e74c3c;
-    border: 1px solid #c0392b;
-}
-
-.spanish-skin {
-    background: linear-gradient(#e74c3c 25%, #ffd700 25%, #ffd700 75%, #e74c3c 75%);
-    border: 1px solid #c0392b;
-}
-
-.azerbaijan-skin {
-    background: radial-gradient(circle, #fff 12%, transparent 13%), linear-gradient(#3498db 33%, #e74c3c 33%, #e74c3c 66%, #2ecc71 66%);
-    border: 1px solid #2980b9;
+    background:
+        linear-gradient(90deg, transparent 45%, #fff 45%, #fff 55%, transparent 55%),
+        linear-gradient(transparent 44%, #fff 44%, #fff 56%, transparent 56%),
+        linear-gradient(45deg, transparent 46%, #27ae60 46%, #27ae60 54%, transparent 54%),
+        linear-gradient(-45deg, transparent 46%, #27ae60 46%, #27ae60 54%, transparent 54%),
+        #e74c3c;
+    border: 2px solid #27ae60;
+    border-radius: 8px 8px 4px 4px !important;
 }
 
 /* --- DINAMIK ADAPTIV FONLAR (SIDEBARLARA TƏSİR EDİR) --- */
@@ -205,9 +254,9 @@ body {
 .selection-container { margin: 15px 0; width: 95%; }
 .selection-container h3 { font-size: 11px; margin-bottom: 8px; color: #bdc3c7; }
 .car-options { display: flex; gap: 6px; justify-content: center; }
-.car-option { border: 2px solid #444; padding: 6px; border-radius: 6px; cursor: pointer; display: flex; flex-direction: column; align-items: center; min-width: 55px; background: #111; }
-.car-option span { font-size: 8px; margin-top: 4px; }
+.car-option { border: 2px solid #444; padding: 6px; border-radius: 6px; cursor: pointer; display: flex; flex-direction: column; align-items: center; min-width: 62px; background: #111; }
+.car-option span { font-size: 8px; margin-top: 4px; text-align: center; }
 .car-option.selected { border-color: #ffd700; background: rgba(255, 215, 0, 0.15); }
-.mini-car { width: 20px; height: 32px; border-radius: 3px; }
+.mini-car { width: 20px; height: 35px; border-radius: 3px; }
 .overlay button { padding: 10px 25px; font-size: 16px; background-color: #e74c3c; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; }
 .hidden { display: none !important; }
