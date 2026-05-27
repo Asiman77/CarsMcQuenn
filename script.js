@@ -1,8 +1,12 @@
-// 1. GLOBAL GAME STATE
+// ==========================================
+// 1. GLOBAL GAME STATE (Oyunun Vəziyyəti)
+// ==========================================
 const gameState = {
     isGameOver: false,
-    isGameStarted: false, // Oyun dərhal başlamır, Start düyməsini gözləyir
+    isGameStarted: false,
     score: 0,
+    // ÖNCƏLİKLİ REKORDU LOCALSTORAGE-DƏN OXUYURUQ (Əgər yoxdursa 0 təyin edirik)
+    highScore: parseInt(localStorage.getItem('highScore')) || 0,
     speed: 4,
     enemySpawnTimer: 0,
     enemySpawnInterval: 80,
@@ -18,7 +22,9 @@ const player = {
 
 const lanes = [20, 120, 220];
 
-// 2. VIEW UPDATERS
+// ==========================================
+// 2. VIEW UPDATERS (Ekrana Yazdırma Funksiyaları)
+// ==========================================
 function updatePlayerPosition() {
     const playerElement = document.getElementById('player');
     if (playerElement) {
@@ -31,7 +37,17 @@ function updateScoreUI() {
     if (scoreElement) scoreElement.innerText = gameState.score;
 }
 
+// Rekord xalı həm başlanğıc, həm də oyun bitiş ekranında yeniləyən funksiya
+function updateHighScoreUI() {
+    const startHighScoreEl = document.getElementById('start-high-score');
+    if (startHighScoreEl) {
+        startHighScoreEl.innerText = gameState.highScore;
+    }
+}
+
+// ==========================================
 // 3. ENEMY SPAWN & MOVEMENT LOGIC
+// ==========================================
 function spawnEnemy() {
     gameState.enemySpawnTimer++;
 
@@ -78,7 +94,9 @@ function moveEnemies() {
     }
 }
 
+// ==========================================
 // 4. AABB COLLISION DETECTION
+// ==========================================
 function checkCollisions() {
     const playerX = lanes[player.lane];
 
@@ -94,7 +112,9 @@ function checkCollisions() {
     });
 }
 
-// 5. GAME FLOW ARCHITECTURE (Start, Loop, End, Restart)
+// ==========================================
+// 5. GAME FLOW ARCHITECTURE (Giriş-Çıxış Mexanikası)
+// ==========================================
 function gameLoop() {
     if (gameState.isGameOver || !gameState.isGameStarted) return;
 
@@ -106,38 +126,43 @@ function gameLoop() {
 }
 
 function startGame() {
-    // State sıfırlanır (Restart sistemi üçün əsas şərt)
     gameState.isGameStarted = true;
     gameState.isGameOver = false;
     gameState.score = 0;
     gameState.speed = 4;
     gameState.enemySpawnTimer = 0;
     gameState.enemies = [];
-    player.lane = 1; // Ortadan başlasın
+    player.lane = 1;
 
-    // Ekrandakı köhnə düşmən maşınlarını təmizləyirik
     document.querySelectorAll('.enemy').forEach(enemy => enemy.remove());
 
-    // UI yenilənir və ekranlar gizlədilir
     document.getElementById('start-screen').classList.add('hidden');
     document.getElementById('game-over-screen').classList.add('hidden');
 
     updatePlayerPosition();
     updateScoreUI();
+    updateHighScoreUI();
 
-    // Oyun dövrü işə düşür
     requestAnimationFrame(gameLoop);
 }
 
 function endGame() {
     gameState.isGameOver = true;
 
-    // Game Over ekranını açırıq və yekun xalı yazırıq
+    // REKORD YOXLANIŞI VƏ LOCALSTORAGE-Ə YAZILMASI
+    if (gameState.score > gameState.highScore) {
+        gameState.highScore = gameState.score;
+        localStorage.setItem('highScore', gameState.highScore); // Brauzer yaddaşına qeyd edilir
+    }
+
     document.getElementById('game-over-screen').classList.remove('hidden');
     document.getElementById('final-score').innerText = gameState.score;
+    updateHighScoreUI();
 }
 
+// ==========================================
 // 6. EVENT LISTENERS
+// ==========================================
 window.addEventListener('keydown', (e) => {
     if (gameState.isGameOver || !gameState.isGameStarted) return;
 
@@ -150,9 +175,11 @@ window.addEventListener('keydown', (e) => {
     }
 });
 
-// Düymələrin funksiyalarla bağlanması
 document.getElementById('start-btn').addEventListener('click', startGame);
 document.getElementById('restart-btn').addEventListener('click', startGame);
 
-// Səhifə ilk açılanda oyunçunu ortala
-updatePlayerPosition();
+// Səhifə ilk dəfə yüklənəndə rekord xalı ekranda göstər
+window.onload = () => {
+    updatePlayerPosition();
+    updateHighScoreUI();
+};
