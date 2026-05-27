@@ -9,6 +9,22 @@
 <body>
 
 <div id="game-container">
+    <div id="start-screen" class="overlay">
+        <h1>CARS MCQUEEN</h1>
+        <p>High Score: <span id="start-high-score">0</span></p>
+        <button id="start-btn">START GAME</button>
+    </div>
+
+    <div id="game-over-screen" class="overlay hidden">
+        <h1>GAME OVER</h1>
+        <p>Score: <span id="final-score">0</span></p>
+        <button id="restart-btn">RETRY</button>
+    </div>
+
+    <div id="hud">
+        SCORE: <span id="score">0</span>
+    </div>
+
     <div id="road">
         <div id="player" class="car"></div>
     </div>
