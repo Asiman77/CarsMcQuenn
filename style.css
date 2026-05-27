@@ -38,3 +38,11 @@ body {
     left: 120px;  /* İlkin olaraq orta zolaqda başlayır */
     transition: left 0.15s ease-out; /* Sağa-sola smooth keçid effekti */
 }
+
+.enemy {
+    position: absolute;
+    width: 60px;
+    height: 100px;
+    background-color: #0066cc; /* Mavi rəngli düşmən maşınlar */
+    border-radius: 8px;
+}
