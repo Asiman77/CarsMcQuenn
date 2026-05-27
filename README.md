@@ -7,7 +7,7 @@ This project was developed strictly adhering to the **KISS (Keep It Super Simple
 ---
 
 ## 🔗 Live Links & Project Assets
-- **Live Game (GitHub Pages):** [👉 Click Here to Play the Game](https://YOUR_GITHUB_USERNAME.github.io/CarsMcQuenn/) *(Replace with your actual GitHub Pages link)*
+- **Live Game (GitHub Pages):** [👉 Click Here to Play the Game](https://asiman77.github.io/CarsMcQuenn/) 
 - **AI Development History Gündəliyi:** [View AI_DIARY.md](AI_DIARY.md)
 
 ---

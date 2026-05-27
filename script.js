@@ -14,11 +14,10 @@ const gameState = {
     currentAnthem: null
 };
 
-const player = { lane: 1, width: 60, height: 100, y: 470 };
+const player = { lane: 1, width: 55, height: 95, y: 475 };
 const skins = ['catalan', 'basque', 'spanish', 'azerbaijan'];
-const lanes = [20, 120, 220];
+const lanes = [22, 122, 222];
 
-// Hər şəhərin özünəməxsus abidəsi və simvolu (DOM-a basılacaq)
 const geographyData = {
     azerbaijan: {
         name: "Azerbaijan",
@@ -58,7 +57,28 @@ const geographyData = {
 };
 
 // ==========================================
-// 2. AUDIO ENGINE
+// 2. INTRO TIMELINE ENGINE (3s Cinema Flicker)
+// ==========================================
+function runIntroTimeline() {
+    const blackoutEl = document.getElementById('intro-blackout');
+    const devCardEl = document.getElementById('developer-card');
+
+    setTimeout(() => {
+        if (blackoutEl) blackoutEl.remove();
+        if (devCardEl) devCardEl.classList.remove('hidden');
+    }, 3000);
+}
+
+document.getElementById('intro-continue-btn').addEventListener('click', () => {
+    const devCardEl = document.getElementById('developer-card');
+    const startScreenEl = document.getElementById('start-screen');
+
+    if (devCardEl) devCardEl.remove();
+    if (startScreenEl) startScreenEl.classList.remove('hidden');
+});
+
+// ==========================================
+// 3. AUDIO ENGINE
 // ==========================================
 function playAnthem(country) {
     if (gameState.currentAnthem) {
@@ -75,7 +95,7 @@ function playAnthem(country) {
     gameState.currentAnthem = new Audio(`assets/${fileName}`);
     gameState.currentAnthem.loop = true;
     gameState.currentAnthem.volume = 0.4;
-    gameState.currentAnthem.play().catch(err => console.log("Audio waiting for gesture"));
+    gameState.currentAnthem.play().catch(err => console.log("Audio gesture delay"));
 }
 
 function stopAnthem() {
@@ -83,22 +103,18 @@ function stopAnthem() {
 }
 
 // ==========================================
-// 3. RETRO SIDEBAR & INTERFACE RENDERING
+// 4. RETRO SIDEBAR RENDERING
 // ==========================================
 function updateGeographyUI() {
     const currentData = geographyData[gameState.selectedSkin];
-
-    // Hər 30 xaldan bir yeni şəhərə/abidəyə keçid
     const cityIndex = Math.min(Math.floor(gameState.score / 30), currentData.cities.length - 1);
     const activeLocation = currentData.cities[cityIndex];
 
-    // Sol və Sağ Panellərdəki DOM düyünlərini doldururuq
     document.getElementById('side-country').innerText = currentData.name;
     document.getElementById('side-city').innerText = activeLocation.city;
     document.getElementById('monument-emoji').innerText = activeLocation.icon;
     document.getElementById('monument-name').innerText = activeLocation.landmark;
 
-    // Sol paneldəki mini bayrağın CSS-ni yeniləyirik
     const flagEl = document.getElementById('side-flag');
     if (flagEl) {
         flagEl.className = "flag-display " + gameState.selectedSkin + "-skin";
@@ -127,7 +143,6 @@ function updateScoreUI() {
     updateGeographyUI();
 }
 
-// Menyuda seçim dəyişəndə həm maşın, həm də yan panellər anında rənglənir
 document.querySelectorAll('.car-option').forEach(option => {
     option.addEventListener('click', (e) => {
         document.querySelectorAll('.car-option').forEach(opt => opt.classList.remove('selected'));
@@ -139,7 +154,7 @@ document.querySelectorAll('.car-option').forEach(option => {
 });
 
 // ==========================================
-// 4. ENGINE CORE & LOGICS (Spawn, Move, Collision)
+// 5. ENGINE CORE & LOGICS
 // ==========================================
 function spawnEnemy() {
     gameState.enemySpawnTimer++;
@@ -153,12 +168,17 @@ function spawnEnemy() {
         const randomEnemySkin = availableSkins[Math.floor(Math.random() * availableSkins.length)];
 
         const enemyDiv = document.createElement('div');
-        enemyDiv.classList.add('enemy', randomEnemySkin + '-skin');
+        enemyDiv.className = 'enemy ' + randomEnemySkin + '-skin';
+
+        const windshieldDiv = document.createElement('div');
+        windshieldDiv.classList.add('car-windshield');
+        enemyDiv.appendChild(windshieldDiv);
+
         enemyDiv.style.left = enemyX + 'px';
         enemyDiv.style.top = '-100px';
         document.getElementById('road').appendChild(enemyDiv);
 
-        gameState.enemies.push({ x: enemyX, y: -100, width: 60, height: 100, element: enemyDiv });
+        gameState.enemies.push({ x: enemyX, y: -100, width: 55, height: 95, element: enemyDiv });
     }
 }
 
@@ -197,7 +217,7 @@ function gameLoop() {
 }
 
 // ==========================================
-// 5. CONTROL FLOW
+// 6. CONTROL FLOW
 // ==========================================
 function startGame() {
     gameState.isGameStarted = true;
@@ -207,6 +227,10 @@ function startGame() {
     gameState.enemySpawnTimer = 0;
     gameState.enemies = [];
     player.lane = 1;
+
+    // Dynamic sidebar deployment exactly when the tour starts!
+    document.querySelectorAll('.scenery-side').forEach(side => side.classList.remove('hidden-sidebar'));
+    document.getElementById('game-container').style.borderColor = '#ffd700';
 
     document.querySelectorAll('.enemy').forEach(enemy => enemy.remove());
     document.getElementById('start-screen').classList.add('hidden');
@@ -243,5 +267,7 @@ document.getElementById('restart-btn').addEventListener('click', startGame);
 window.onload = () => {
     const startHighScoreEl = document.getElementById('start-high-score');
     if (startHighScoreEl) startHighScoreEl.innerText = gameState.highScore;
+
     updatePlayerPosition();
+    runIntroTimeline();
 };

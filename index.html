@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CarsMcQuenn - World Tour Rush</title>
+    <title>World Tour Rush - by asimanStudio</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <div id="main-viewport">
 
-    <div id="left-sidebar" class="scenery-side">
+    <div id="left-sidebar" class="scenery-side hidden-sidebar">
         <div class="info-card signpost">
             <span class="label">REGION</span>
             <h2 id="side-country">-</h2>
@@ -23,12 +23,38 @@
     </div>
 
     <div id="game-container">
-        <div id="start-screen" class="overlay">
+
+        <div id="intro-blackout" class="overlay">
+            <div class="cinematic-fog"></div>
+            <div class="premium-cls-front">
+                <div class="cls-grille-logo"></div>
+                <div class="cls-matrix-lights">
+                    <div class="left-headlight"></div>
+                    <div class="right-headlight"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="developer-card" class="overlay hidden">
+            <div class="dev-profile-wrapper">
+                <img src="assets/asiman.jpg" alt="Asiman Mirzaliyev" class="dev-photo">
+            </div>
+            <div class="dev-credits">
+                <h2 class="studio-title">asimanStudio</h2>
+                <p class="friendship-text">
+                    This premium interactive software is officially developed and published by asimanStudio, celebrating global cultural heritage and international friendship across Azerbaijan, Spain, Basque Country, and Catalonia.
+                </p>
+                <h3 class="author-name">Founder & Lead Engineer: Asiman Mirzaliyev</h3>
+            </div>
+            <button id="intro-continue-btn">ENTER GAME</button>
+        </div>
+
+        <div id="start-screen" class="overlay hidden">
             <h1>WORLD RUSH</h1>
             <p>High Score: <span id="start-high-score">0</span></p>
 
             <div class="selection-container">
-                <h3>CHOOSE YOUR COUNTRY & CAR:</h3>
+                <h3>SELECT YOUR LUXURY CAR:</h3>
                 <div class="car-options">
                     <div class="car-option selected" data-region="catalan">
                         <div class="mini-car catalan-skin"></div>
@@ -44,17 +70,17 @@
                     </div>
                     <div class="car-option" data-region="azerbaijan">
                         <div class="mini-car azerbaijan-skin"></div>
-                        <span>Lada 2107</span>
+                        <span>Mercedes CLS</span>
                     </div>
                 </div>
             </div>
 
-            <button id="start-btn">START GAME</button>
+            <button id="start-btn">START TOUR</button>
         </div>
 
         <div id="game-over-screen" class="overlay hidden">
             <h1>GAME OVER</h1>
-            <p>Score: <span id="final-score">0</span></p>
+            <p>Final Score: <span id="final-score">0</span></p>
             <button id="restart-btn">RETRY</button>
         </div>
 
@@ -63,11 +89,14 @@
         </div>
 
         <div id="road">
-            <div id="player" class="car"></div>
+            <div id="player" class="car">
+                <div class="cls-grille-logo"></div>
+                <div class="car-windshield"></div>
+            </div>
         </div>
     </div>
 
-    <div id="right-sidebar" class="scenery-side">
+    <div id="right-sidebar" class="scenery-side hidden-sidebar">
         <div class="info-card monument-card">
             <span class="label">LANDMARK</span>
             <div id="monument-emoji" class="monument-icon">🏛️</div>
