@@ -28,7 +28,6 @@ body {
         transparent 34%, transparent 65%, #fff 65%, #fff 67%, transparent 67%);
 }
 
-/* --- DİNAMİK SKIN MAŞIN STRUKTURU --- */
 .car {
     position: absolute;
     width: 60px;
@@ -47,7 +46,7 @@ body {
     z-index: 1;
 }
 
-/* --- REALLAŞDIRILMIŞ BAYRAQ GRADIEN-LƏRİ --- */
+/* --- ADAPTİV BAYRAQ GRADIEN-LƏRİ --- */
 .catalan-skin {
     background: linear-gradient(90deg,
         #ffd700 0%, #ffd700 20%, #e74c3c 20%, #e74c3c 40%,
@@ -70,15 +69,32 @@ body {
     border: 1px solid #c0392b;
 }
 
-/* --- HUD & OVERLAY INTERFACE --- */
+/* Azərbaycan: Göy, Qırmızı, Yaşıl və mərkəzdə Ay-Ulduz rəmzi ağ dairə */
+.azerbaijan-skin {
+    background:
+        radial-gradient(circle, #fff 12%, transparent 13%),
+        linear-gradient(#3498db 33%, #e74c3c 33%, #e74c3c 66%, #2ecc71 66%);
+    border: 1px solid #2980b9;
+}
+
+/* --- HUD DIZAYNI --- */
 #hud {
     position: absolute;
-    top: 15px; left: 15px;
+    top: 12px; left: 12px; right: 12px;
     color: #fff;
-    font-size: 20px;
+    font-size: 14px;
     font-weight: bold;
     z-index: 5;
     text-shadow: 1px 1px 3px #000;
+    display: flex;
+    justify-content: space-between;
+    background: rgba(0,0,0,0.4);
+    padding: 6px 10px;
+    border-radius: 4px;
+}
+
+#city-box {
+    color: #ffd700;
 }
 
 .overlay {
@@ -101,27 +117,27 @@ body {
     letter-spacing: 2px;
 }
 
-/* --- SELECTION PANEL UI --- */
 .selection-container {
     margin: 15px 0;
-    width: 90%;
+    width: 95%;
 }
 
 .selection-container h3 {
-    font-size: 14px;
-    margin-bottom: 10px;
+    font-size: 13px;
+    margin-bottom: 8px;
     color: #bdc3c7;
 }
 
 .car-options {
     display: flex;
-    gap: 10px;
+    gap: 8px;
     justify-content: center;
+    flex-wrap: wrap; /* Azərbaycan sığsın deyə */
 }
 
 .car-option {
     border: 2px solid #444;
-    padding: 8px;
+    padding: 6px;
     border-radius: 6px;
     cursor: pointer;
     display: flex;
@@ -129,12 +145,12 @@ body {
     align-items: center;
     background: rgba(255,255,255,0.05);
     transition: all 0.2s ease;
-    min-width: 65px;
+    min-width: 60px;
 }
 
 .car-option span {
-    font-size: 11px;
-    margin-top: 5px;
+    font-size: 10px;
+    margin-top: 4px;
 }
 
 .car-option.selected {
@@ -144,8 +160,8 @@ body {
 }
 
 .mini-car {
-    width: 25px;
-    height: 40px;
+    width: 22px;
+    height: 35px;
     border-radius: 4px;
 }
 
