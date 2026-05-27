@@ -3,55 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CarsMcQuenn - Highway Rush</title>
+    <title>CarsMcQuenn - World Tour Rush</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div id="game-container">
-    <div id="start-screen" class="overlay">
-        <h1>CARS MCQUEEN</h1>
-        <p>High Score: <span id="start-high-score">0</span></p>
+<div id="main-viewport">
 
-        <div class="selection-container">
-            <h3>CHOOSE YOUR COUNTRY:</h3>
-            <div class="car-options">
-                <div class="car-option selected" data-region="catalan">
-                    <div class="mini-car catalan-skin"></div>
-                    <span>Catalan</span>
-                </div>
-                <div class="car-option" data-region="basque">
-                    <div class="mini-car basque-skin"></div>
-                    <span>Basque</span>
-                </div>
-                <div class="car-option" data-region="spanish">
-                    <div class="mini-car spanish-skin"></div>
-                    <span>Spanish</span>
-                </div>
-                <div class="car-option" data-region="azerbaijan">
-                    <div class="mini-car azerbaijan-skin"></div>
-                    <span>Azerbaijan</span>
+    <div id="left-sidebar" class="scenery-side">
+        <div class="info-card signpost">
+            <span class="label">REGION</span>
+            <h2 id="side-country">-</h2>
+        </div>
+        <div class="info-card signpost city-sign">
+            <span class="label">CURRENT CITY</span>
+            <h2 id="side-city">-</h2>
+        </div>
+        <div class="flag-display" id="side-flag"></div>
+    </div>
+
+    <div id="game-container">
+        <div id="start-screen" class="overlay">
+            <h1>WORLD RUSH</h1>
+            <p>High Score: <span id="start-high-score">0</span></p>
+
+            <div class="selection-container">
+                <h3>CHOOSE YOUR COUNTRY:</h3>
+                <div class="car-options">
+                    <div class="car-option selected" data-region="catalan">
+                        <div class="mini-car catalan-skin"></div>
+                        <span>Catalan</span>
+                    </div>
+                    <div class="car-option" data-region="basque">
+                        <div class="mini-car basque-skin"></div>
+                        <span>Basque</span>
+                    </div>
+                    <div class="car-option" data-region="spanish">
+                        <div class="mini-car spanish-skin"></div>
+                        <span>Spanish</span>
+                    </div>
+                    <div class="car-option" data-region="azerbaijan">
+                        <div class="mini-car azerbaijan-skin"></div>
+                        <span>Azerbaijan</span>
+                    </div>
                 </div>
             </div>
+
+            <button id="start-btn">START GAME</button>
         </div>
 
-        <button id="start-btn">START GAME</button>
+        <div id="game-over-screen" class="overlay hidden">
+            <h1>GAME OVER</h1>
+            <p>Score: <span id="final-score">0</span></p>
+            <button id="restart-btn">RETRY</button>
+        </div>
+
+        <div id="hud">
+            SCORE: <span id="score">0</span>
+        </div>
+
+        <div id="road">
+            <div id="player" class="car"></div>
+        </div>
     </div>
 
-    <div id="game-over-screen" class="overlay hidden">
-        <h1>GAME OVER</h1>
-        <p>Score: <span id="final-score">0</span></p>
-        <button id="restart-btn">RETRY</button>
+    <div id="right-sidebar" class="scenery-side">
+        <div class="info-card monument-card">
+            <span class="label">LANDMARK</span>
+            <div id="monument-emoji" class="monument-icon">🏛️</div>
+            <h4 id="monument-name">-</h4>
+        </div>
+        <div class="decorative-trees">
+            <div class="tree">🌳</div>
+            <div class="tree">🌲</div>
+            <div class="tree">🌳</div>
+        </div>
     </div>
 
-    <div id="hud">
-        <div id="score-box">SCORE: <span id="score">0</span></div>
-        <div id="city-box">LOCATION: <span id="current-city">-</span></div>
-    </div>
-
-    <div id="road">
-        <div id="player" class="car"></div>
-    </div>
 </div>
 
 <script src="script.js"></script>
