@@ -7,6 +7,7 @@ body {
     align-items: center;
     height: 100vh;
     font-family: 'Courier New', Courier, monospace;
+    user-select: none;
 }
 
 #game-container {
@@ -27,24 +28,49 @@ body {
         transparent 34%, transparent 65%, #fff 65%, #fff 67%, transparent 67%);
 }
 
+/* --- DİNAMİK SKIN MAŞIN STRUKTURU --- */
 .car {
     position: absolute;
     width: 60px;
     height: 100px;
-    background-color: #e74c3c;
     border-radius: 8px;
     bottom: 30px;
     transition: left 0.12s ease-out;
+    z-index: 2;
 }
 
 .enemy {
     position: absolute;
     width: 60px;
     height: 100px;
-    background-color: #0066cc;
     border-radius: 8px;
+    z-index: 1;
 }
 
+/* --- REALLAŞDIRILMIŞ BAYRAQ GRADIEN-LƏRİ --- */
+.catalan-skin {
+    background: linear-gradient(90deg,
+        #ffd700 0%, #ffd700 20%, #e74c3c 20%, #e74c3c 40%,
+        #ffd700 40%, #ffd700 60%, #e74c3c 60%, #e74c3c 80%, #ffd700 80%);
+    border: 1px solid #d35400;
+}
+
+.basque-skin {
+    background:
+        linear-gradient(90deg, transparent 44%, #fff 44%, #fff 56%, transparent 56%),
+        linear-gradient(transparent 44%, #fff 44%, #fff 56%, transparent 56%),
+        linear-gradient(45deg, transparent 46%, #27ae60 46%, #27ae60 54%, transparent 54%),
+        linear-gradient(-45deg, transparent 46%, #27ae60 46%, #27ae60 54%, transparent 54%),
+        #e74c3c;
+    border: 1px solid #c0392b;
+}
+
+.spanish-skin {
+    background: linear-gradient(#e74c3c 25%, #ffd700 25%, #ffd700 75%, #e74c3c 75%);
+    border: 1px solid #c0392b;
+}
+
+/* --- HUD & OVERLAY INTERFACE --- */
 #hud {
     position: absolute;
     top: 15px; left: 15px;
@@ -52,37 +78,88 @@ body {
     font-size: 20px;
     font-weight: bold;
     z-index: 5;
+    text-shadow: 1px 1px 3px #000;
 }
 
-/* --- YENİ EKLƏNƏN EKRAN SÜTÜNLARI --- */
 .overlay {
     position: absolute;
     top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0, 0, 0, 0.85);
+    background: rgba(0, 0, 0, 0.9);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     color: white;
     z-index: 10;
+    text-align: center;
 }
 
 .overlay h1 {
     color: #ffd700;
+    margin: 0 0 10px 0;
+    font-size: 26px;
+    letter-spacing: 2px;
+}
+
+/* --- SELECTION PANEL UI --- */
+.selection-container {
+    margin: 15px 0;
+    width: 90%;
+}
+
+.selection-container h3 {
+    font-size: 14px;
     margin-bottom: 10px;
-    font-size: 28px;
+    color: #bdc3c7;
+}
+
+.car-options {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.car-option {
+    border: 2px solid #444;
+    padding: 8px;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(255,255,255,0.05);
+    transition: all 0.2s ease;
+    min-width: 65px;
+}
+
+.car-option span {
+    font-size: 11px;
+    margin-top: 5px;
+}
+
+.car-option.selected {
+    border-color: #ffd700;
+    background: rgba(255, 215, 0, 0.15);
+    transform: scale(1.05);
+}
+
+.mini-car {
+    width: 25px;
+    height: 40px;
+    border-radius: 4px;
 }
 
 .overlay button {
-    padding: 10px 20px;
-    font-size: 18px;
+    padding: 10px 25px;
+    font-size: 16px;
     background-color: #e74c3c;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     font-weight: bold;
-    margin-top: 15px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+    transition: background 0.2s;
 }
 
 .overlay button:hover {
